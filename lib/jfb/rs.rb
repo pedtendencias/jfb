@@ -20,36 +20,36 @@ class RS
 	end
 
 	def close
-		if not is_closed? then
+		if not is_closed?
 			@my_rs.close()
 		end
 	end
 
-	def is_closed? then
+	def is_closed?
 		return @my_rs.isClosed()
 	end
 
-	def is_last? then
+	def is_last?
 		return @my_rs.isLast()
 	end
 
-	def is_first? then
+	def is_first? 
 		return @my_rs.isFirst()
 	end
 
-	def before_first then
+	def before_first
 		return @my_rs.beforeFirst()
 	end
 
-	def after_last then
+	def after_last
 		return @my_rs.afterLast()
 	end
 
-	def first then
+	def first
 		return @my_rs.first()
 	end
 
-	def last then
+	def last
 		return @my_rs.last()
 	end
 
