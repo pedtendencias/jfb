@@ -11,11 +11,15 @@ class RS
 		@my_rs.absolute(row)
 	end
 
-	def next()
+	def next
 		return @my_rs.next()
 	end
 
-	def close()
+	def previous
+		return @my_rs.previous()
+	end
+
+	def close
 		if not is_closed? then
 			@my_rs.close()
 		end
