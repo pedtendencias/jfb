@@ -1,7 +1,8 @@
 require 'java'
-require './rs'
+require_relative 'rs'
+require_relative 'FDB.jar'
 
-java_import './FDBConnection.java'
+#$CLASSPATH << "/lib/jfb"
 
 class JFB
 	def initialize(db_url, usr, pwd)
