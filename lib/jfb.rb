@@ -1,5 +1,6 @@
 require "jfb/version"
+require "jfb/jfb"
 
 module Jfb
-  # Your code goes here...
+  
 end
