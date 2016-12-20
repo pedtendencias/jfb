@@ -1,25 +1,35 @@
-require 'java'
 require_relative 'rs'
-require_relative 'FDB.jar'
-
-#$CLASSPATH << "/lib/jfb"
+require 'jdbc/firebird'
 
 class JFB
+	@con = nil
+	@closed = true
+
 	def initialize(db_url, usr, pwd)
 		begin
-			@db = FFBConnection.new()
-			@db.connectSQLServer(db_url, usr, pwd)
-		rescue
-			@db = nil
-			@error = true
+			if Jdbc::Firebird.load_driver then
+				@con = java.sql.DriverManager.getConnection(db_url, usr, pwd)
+				puts 3
+
+				@con.setAutoCommit false
+				@con.setHoldability java.sql.ResultSet.HOLD_CURSORS_OVER_COMMIT
+				@closed = false
+			else
+				puts "Failure to load driver."
+			end
+
+		rescue java.lang.Exception => erro
+			@con = nil
+			@closed = true
+			puts "Error connecting!\n#{erro}"
 		end
 	end
 
 	def query(cmd)
-		if @error then
+		if not @closed then
 			begin
-				return RS.new(@db.makeQuery(cmd))
-			rescue Error > erro
+				return RS.new(@con.createStatement().executeQuery(cmd))
+			rescue java.lang.Exception => erro
 				puts "Error message:\n#{erro}"
 			end
 		end
@@ -28,14 +38,23 @@ class JFB
 	end
 	
 	def update(cmd)
-		if @error then
+		if not @closed then
 			begin
-				@db.makeUpdate(cmd)
-			rescue Error > erro
+				@con.createStatement().executeUpdate(cmd)
+			rescue java.lang.Exception => erro
 				puts "Error message:\n#{erro}" 
 			end
 		else
 			return nil
+		end
+	end
+
+	def close
+		if not @closed then
+			@con.commit()
+			@con.close()
+			@con = nil
+			@closed = true
 		end
 	end
 end
