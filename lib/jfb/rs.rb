@@ -1,5 +1,4 @@
 require 'java'
-#java_import 'java.sql.ResultSet'
 
 class RS
 	def initialize(result_set)
