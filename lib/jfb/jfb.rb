@@ -1,5 +1,7 @@
 require_relative 'rs'
 require 'jdbc/firebird'
+java_import 'java.sql.DriverManager'
+java_import 'java.sql.SQLRecoverableException'
 
 class JFB
 	@con = nil
@@ -8,17 +10,16 @@ class JFB
 	def initialize(db_url, usr, pwd)
 		begin
 			if Jdbc::Firebird.load_driver then
-				@con = java.sql.DriverManager.getConnection(db_url, usr, pwd)
-				puts 3
+				@con = DriverManager.getConnection(db_url, usr, pwd)
 
 				@con.setAutoCommit false
-				@con.setHoldability java.sql.ResultSet.HOLD_CURSORS_OVER_COMMIT
+				@con.setHoldability ResultSet.HOLD_CURSORS_OVER_COMMIT
 				@closed = false
 			else
 				puts "Failure to load driver."
 			end
 
-		rescue java.lang.Exception => erro
+		rescue SQLRecoverableException => erro
 			@con = nil
 			@closed = true
 			puts "Error connecting!\n#{erro}"
@@ -29,7 +30,7 @@ class JFB
 		if not @closed then
 			begin
 				return RS.new(@con.createStatement().executeQuery(cmd))
-			rescue java.lang.Exception => erro
+			rescue Error => erro
 				puts "Error message:\n#{erro}"
 			end
 		end
@@ -41,7 +42,7 @@ class JFB
 		if not @closed then
 			begin
 				@con.createStatement().executeUpdate(cmd)
-			rescue java.lang.Exception => erro
+			rescue Error => erro
 				puts "Error message:\n#{erro}" 
 			end
 		else
