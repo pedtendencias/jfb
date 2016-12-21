@@ -1,5 +1,5 @@
 require_relative 'rs'
-require './jaybird-2.2.10.jar'
+require_relative 'jaybird-2.2.10.jar'
 java_import 'java.sql.ResultSet'
 java_import 'java.sql.SQLRecoverableException'
 
