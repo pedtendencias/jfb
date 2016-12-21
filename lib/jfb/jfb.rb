@@ -20,8 +20,8 @@ class JFB
 
 			begin
 				@con = fbd.connect("jdbc:firebirdsql:#{db_url}", props)
-				@con.setAutocommit false
-				@con.setHoldability ResultSet.HOLD_CURSORS_OVER_COMMIT
+				@con.set_auto_commit false
+				@con.set_holdability ResultSet.HOLD_CURSORS_OVER_COMMIT
 				@closed = false
 
 			rescue SQLRecoverableException => erro
