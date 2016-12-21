@@ -10,7 +10,7 @@ class JFB
 	def initialize(db_url, usr, pwd)
 		begin
 			if Jdbc::Firebird.load_driver then
-				@con = DriverManager.getConnection(db_url, usr, pwd)
+				@con = DriverManager.getConnection("jdbc:firebirdsql:" + db_url, usr, pwd)
 
 				@con.setAutoCommit false
 				@con.setHoldability ResultSet.HOLD_CURSORS_OVER_COMMIT
