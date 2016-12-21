@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.2.4"
+  VERSION = "0.2.5"
 
 #Version 0.1.0
 # Creates proper interface with jdbc
@@ -23,4 +23,7 @@ module Jfb
 
 #Version 0.2.4
 # Fixup at the require of the jarfile
+
+#Version 0.2.5
+# Forgot a new in FBDrivers's invocation
 end
