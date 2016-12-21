@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.1.1"
+  VERSION = "0.1.2"
 
 #Version 0.1.0
 # Creates proper interface with jdbc
