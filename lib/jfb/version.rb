@@ -8,4 +8,7 @@ module Jfb
 
 #Version 0.1.1
 # Adds dependency which I had forgot.
+
+#Version 0.1.2
+# Adds jdbc/firebird text to JDBC Connection.
 end
