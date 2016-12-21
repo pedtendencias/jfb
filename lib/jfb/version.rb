@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.1.3"
+  VERSION = "0.2.3"
 
 #Version 0.1.0
 # Creates proper interface with jdbc
@@ -14,4 +14,10 @@ module Jfb
 
 #Version 0.1.3
 # Adds ResultSet class import for jfb
+
+#Version 0.2.3
+# Removes jdbc/firebird dependency
+# Adds jaybird version 2.2.10 to gem
+# Makes connection idependent from standard java.sql, as to prevent 'no suitable driver' related errors
+# Better handling and detection plausible connections
 end
