@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.2.3"
+  VERSION = "0.2.4"
 
 #Version 0.1.0
 # Creates proper interface with jdbc
@@ -20,4 +20,7 @@ module Jfb
 # Adds jaybird version 2.2.10 to gem
 # Makes connection idependent from standard java.sql, as to prevent 'no suitable driver' related errors
 # Better handling and detection plausible connections
+
+#Version 0.2.4
+# Fixup at the require of the jarfile
 end
