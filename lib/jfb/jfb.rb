@@ -1,6 +1,7 @@
 require_relative 'rs'
 require 'jdbc/firebird'
 java_import 'java.sql.DriverManager'
+java_import 'java.sql.ResultSet'
 java_import 'java.sql.SQLRecoverableException'
 
 class JFB
