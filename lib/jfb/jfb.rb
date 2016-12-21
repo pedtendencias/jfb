@@ -1,6 +1,5 @@
 require_relative 'rs'
-require 'jdbc/firebird'
-java_import 'java.sql.DriverManager'
+require './jaybird-2.2.10.jar'
 java_import 'java.sql.ResultSet'
 java_import 'java.sql.SQLRecoverableException'
 
@@ -9,21 +8,33 @@ class JFB
 	@closed = true
 
 	def initialize(db_url, usr, pwd)
-		begin
-			if Jdbc::Firebird.load_driver then
-				@con = DriverManager.getConnection("jdbc:firebirdsql:" + db_url, usr, pwd)
+		Java::JavaClass.for_name("org.firebirdsql.jdbc.FBDriver")
+		fbd = org.firebirdsql.jdbc.FBDriver
 
-				@con.setAutoCommit false
+		if fbd.acceptsURL("jdbc:firebirdsql:#{db_url}") then
+			Java::JavaClass.for_name("java.util.Properties")
+
+			props = java.util.Properties.new
+			props.set_property :user, usr
+			props.set_property :password, pwd
+
+			begin
+				@con = fbd.connect("jdbc:firebirdsql:#{db_url}", props)
+				@con.setAutocommit false
 				@con.setHoldability ResultSet.HOLD_CURSORS_OVER_COMMIT
 				@closed = false
-			else
-				puts "Failure to load driver."
-			end
 
-		rescue SQLRecoverableException => erro
+			rescue SQLRecoverableException => erro
+				@con = nil
+				@closed = true
+				puts "Error connecting!\n#{erro}"
+			end	
+		else
 			@con = nil
 			@closed = true
-			puts "Error connecting!\n#{erro}"
+			puts "Database URI #{db_url} isn't acceptable. 
+			      You don't have to supply the 'jdbc:firebirsql:' part, 
+			      we already do that. Please check your URI."
 		end
 	end
 
