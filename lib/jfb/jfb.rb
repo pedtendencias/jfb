@@ -9,7 +9,7 @@ class JFB
 
 	def initialize(db_url, usr, pwd)
 		Java::JavaClass.for_name("org.firebirdsql.jdbc.FBDriver")
-		fbd = org.firebirdsql.jdbc.FBDriver
+		fbd = org.firebirdsql.jdbc.FBDriver.new
 
 		if fbd.acceptsURL("jdbc:firebirdsql:#{db_url}") then
 			Java::JavaClass.for_name("java.util.Properties")
