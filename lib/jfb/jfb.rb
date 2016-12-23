@@ -2,6 +2,7 @@ require_relative 'rs'
 require_relative 'jaybird-2.2.10.jar'
 java_import 'java.sql.ResultSet'
 java_import 'java.sql.SQLRecoverableException'
+java_import 'java.lang.Exception'
 
 class JFB
 	@con = nil
@@ -42,7 +43,7 @@ class JFB
 		if not @closed then
 			begin
 				return RS.new(@con.createStatement().executeQuery(cmd))
-			rescue Error => erro
+			rescue Exception => erro
 				puts "Error message:\n#{erro}"
 			end
 		end
@@ -54,7 +55,7 @@ class JFB
 		if not @closed then
 			begin
 				@con.createStatement().executeUpdate(cmd)
-			rescue Error => erro
+			rescue Exception => erro
 				puts "Error message:\n#{erro}" 
 			end
 		else
