@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.2.6"
+  VERSION = "0.2.7"
 
 #Version 0.1.0
 # Creates proper interface with jdbc
@@ -29,4 +29,7 @@ module Jfb
 
 #Version 0.2.6
 # Fix typos at method calls
+
+#Version 0.2.7
+# Proper Exception handling for query/update.
 end
