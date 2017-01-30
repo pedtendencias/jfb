@@ -1,9 +1,9 @@
 module Jfb
-  VERSION = "0.2.8"
+  VERSION = "0.2.9"
 
 #Version 0.1.0
 # Creates proper interface with jdbc
-# creater interface for ResultSet Class
+# creates interface for ResultSet Class
 # Handles exceptions and drivers
 
 #Version 0.1.1
@@ -35,4 +35,7 @@ module Jfb
 
 #Version 0.2.8
 # Removed Exception class unnecessary importation to prevent warnings.
+
+#Version 0.2.9
+# Adds commit function.
 end

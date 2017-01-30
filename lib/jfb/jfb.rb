@@ -62,6 +62,12 @@ class JFB
 		end
 	end
 
+	def commit
+		if not @closed then
+			@con.commit()
+		end
+	end
+
 	def close
 		if not @closed then
 			@con.commit()
