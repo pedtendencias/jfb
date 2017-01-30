@@ -2,7 +2,6 @@ require_relative 'rs'
 require_relative 'jaybird-2.2.10.jar'
 java_import 'java.sql.ResultSet'
 java_import 'java.sql.SQLRecoverableException'
-java_import 'java.lang.Exception'
 
 class JFB
 	@con = nil

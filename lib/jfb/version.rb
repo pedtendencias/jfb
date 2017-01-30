@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.2.7"
+  VERSION = "0.2.8"
 
 #Version 0.1.0
 # Creates proper interface with jdbc
@@ -32,4 +32,7 @@ module Jfb
 
 #Version 0.2.7
 # Proper Exception handling for query/update.
+
+#Version 0.2.8
+# Removed Exception class unnecessary importation to prevent warnings.
 end
