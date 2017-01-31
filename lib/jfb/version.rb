@@ -1,5 +1,10 @@
 module Jfb
-  VERSION = "0.2.9"
+  VERSION = "0.3.9"
+
+#What the numbers mean: rr.ff.hh
+# rr: Major releases and changes in the project;
+# ff: Features added
+# hh: Hotfixes in the project
 
 #Version 0.1.0
 # Creates proper interface with jdbc
@@ -38,4 +43,7 @@ module Jfb
 
 #Version 0.2.9
 # Adds commit function.
+
+#Version 0.3.9
+# Improves error reporting.
 end

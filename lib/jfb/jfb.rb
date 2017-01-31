@@ -43,7 +43,7 @@ class JFB
 			begin
 				return RS.new(@con.createStatement().executeQuery(cmd))
 			rescue Exception => erro
-				puts "Error message:\n#{erro}"
+				puts "Error message while querying:\n#{erro}\nQuery: #{cmd}"
 			end
 		end
 
@@ -55,7 +55,7 @@ class JFB
 			begin
 				@con.createStatement().executeUpdate(cmd)
 			rescue Exception => erro
-				puts "Error message:\n#{erro}" 
+				puts "Error message while updating:\n#{erro}\nUpdate: #{cmd}" 
 			end
 		else
 			return nil
@@ -64,14 +64,24 @@ class JFB
 
 	def commit
 		if not @closed then
-			@con.commit()
+			begin
+				@con.commit()
+			rescue Exception => erro
+				puts "Error message while commiting:\n#{erro}"
+			end
 		end
 	end
 
 	def close
 		if not @closed then
-			@con.commit()
-			@con.close()
+			commit()
+
+			begin
+				@con.close()
+			rescue Exception => erro
+				puts "Error message while closing connection:\n#{erro}"
+			end
+
 			@con = nil
 			@closed = true
 		end
