@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.4.10"
+  VERSION = "0.4.11"
 
 #What the numbers mean: rr.ff.hh
 # rr: Major releases and changes in the project;
@@ -53,4 +53,7 @@ module Jfb
 
 #Version 0.4.10
 # Uses Jaybird-full file
+
+#Version 0.4.11
+# Rollback Jaybird version to 2.2.12
 end
