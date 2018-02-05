@@ -50,4 +50,7 @@ module Jfb
 #Version 0.4.9
 # Adds interface for connection status because who would imagine that this would be important? (me, I should have)
 # Updates Jaybird to 2.2.14
+
+#Version 0.4.10
+# Uses Jaybird-full file
 end
