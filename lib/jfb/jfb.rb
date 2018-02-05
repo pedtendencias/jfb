@@ -1,15 +1,16 @@
 require_relative 'rs'
-require_relative 'jaybird-2.2.10.jar'
+require_relative 'jaybird-2.2.14.jar'
 java_import 'java.sql.ResultSet'
 java_import 'java.sql.SQLRecoverableException'
 
 class JFB
-	@con = nil
-	@closed = true
+	attr_accessor :closed
 
 	def initialize(db_url, usr, pwd)
 		Java::JavaClass.for_name("org.firebirdsql.jdbc.FBDriver")
 		fbd = org.firebirdsql.jdbc.FBDriver.new
+		@closed = true
+		@con = nil
 
 		if fbd.acceptsURL("jdbc:firebirdsql:#{db_url}") then
 			Java::JavaClass.for_name("java.util.Properties")
