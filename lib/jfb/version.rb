@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.3.9"
+  VERSION = "0.4.9"
 
 #What the numbers mean: rr.ff.hh
 # rr: Major releases and changes in the project;
@@ -46,4 +46,8 @@ module Jfb
 
 #Version 0.3.9
 # Improves error reporting.
+
+#Version 0.4.9
+# Adds interface for connection status because who would imagine that this would be important? (me, I should have)
+# Updates Jaybird to 2.2.14
 end
