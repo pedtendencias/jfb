@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.5.0"
+  VERSION = "0.5.1"
 
 #What the numbers mean: rr.ff.hh
 # rr: Major releases and changes in the project;
@@ -59,4 +59,8 @@ module Jfb
 
 #Version 0.5.0
 # Implements standard rs to matrix conversion
+
+#Version 0.5.1
+# Implements a simple test to interact with a database in my envyro.
+# Fixes wrong column refference.
 end

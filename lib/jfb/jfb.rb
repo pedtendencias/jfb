@@ -102,11 +102,15 @@ class JFB
 		res = []
 		k = 0
 
-		while rs.next do
-			cols = rs.metada_data().get_column.count()
+		cols = rs.get_meta_data.get_column_count
 
-			(0..cols - 1).each do |i|
-				res[k][i] = rs.get_string(i)	
+		while rs.next do
+			(1..cols).each do |i|
+				if res[k] == nil then
+					res[k] = []
+				end
+
+				res[k][i - 1] = rs.get_string(i)	
 			end
 
 			k = k + 1
