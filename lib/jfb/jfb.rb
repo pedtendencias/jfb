@@ -1,4 +1,3 @@
-require_relative 'rs'
 require_relative 'jaybird-2.2.12.jar'
 java_import 'java.sql.ResultSet'
 java_import 'java.sql.SQLRecoverableException'
@@ -8,19 +7,27 @@ class JFB
 
 	def initialize(db_url, usr, pwd)
 		Java::JavaClass.for_name("org.firebirdsql.jdbc.FBDriver")
-		fbd = org.firebirdsql.jdbc.FBDriver.new
+		@fbd = org.firebirdsql.jdbc.FBDriver.new
+		@url = db_url
+		@usr = usr
+		@pwd = pwd
 		@closed = true
 		@con = nil
+	end
 
-		if fbd.acceptsURL("jdbc:firebirdsql:#{db_url}") then
+	def connect()
+		if @closed then
+			@con = nil
+
+		if @fbd.acceptsURL("jdbc:firebirdsql:#{@url}") then
 			Java::JavaClass.for_name("java.util.Properties")
 
 			props = java.util.Properties.new
-			props.set_property :user, usr
-			props.set_property :password, pwd
+			props.set_property :user, @usr
+			props.set_property :password, @pwd
 
 			begin
-				@con = fbd.connect("jdbc:firebirdsql:#{db_url}", props)
+				@con = @fbd.connect("jdbc:firebirdsql:#{@url}", props)
 				@con.set_auto_commit false
 				@con.set_holdability ResultSet.HOLD_CURSORS_OVER_COMMIT
 				@closed = false
@@ -33,16 +40,19 @@ class JFB
 		else
 			@con = nil
 			@closed = true
-			puts "Database URI #{db_url} isn't acceptable. 
+			puts "Database URI #{@url} isn't acceptable. 
 			      You don't have to supply the 'jdbc:firebirsql:' part, 
 			      we already do that. Please check your URI."
+		end
+
+			@closed = false
 		end
 	end
 
 	def query(cmd)
 		if not @closed then
 			begin
-				return RS.new(@con.createStatement().executeQuery(cmd))
+				return convert_rs_to_array(@con.createStatement().executeQuery(cmd))
 			rescue Exception => erro
 				puts "Error message while querying:\n#{erro}\nQuery: #{cmd}"
 			end
@@ -86,5 +96,22 @@ class JFB
 			@con = nil
 			@closed = true
 		end
+	end
+
+	def convert_rs_to_array(rs)
+		res = []
+		k = 0
+
+		while rs.next do
+			cols = rs.metada_data().get_column.count()
+
+			(0..cols - 1).each do |i|
+				res[k][i] = rs.get_string(i)	
+			end
+
+			k = k + 1
+		end
+
+		res
 	end
 end
