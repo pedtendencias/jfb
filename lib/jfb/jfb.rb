@@ -1,5 +1,6 @@
 require_relative 'jaybird-2.2.12.jar'
 java_import 'java.sql.ResultSet'
+java_import 'java.sql.Connection'
 java_import 'java.sql.SQLRecoverableException'
 
 class JFB
@@ -15,7 +16,7 @@ class JFB
 		@con = nil
 	end
 
-	def connect()
+	def connect(attr={})
 		if @closed then
 			@con = nil
 
@@ -29,7 +30,35 @@ class JFB
 			begin
 				@con = @fbd.connect("jdbc:firebirdsql:#{@url}", props)
 				@con.set_auto_commit false
-				@con.set_holdability ResultSet.HOLD_CURSORS_OVER_COMMIT
+				if attr[:holdability] != nil then
+					case attr[:holdability]
+						when :hcoc
+							@con.set_holdability ResultSet.HOLD_CURSORS_OVER_COMMIT						
+						when :ccac
+							@con.set_holdability ResultSet.CLOSE_CURSORS_AT_COMMIT
+						else
+					end
+				end
+
+				if attr[:transaction_isolation] != nil
+					case :tru	
+						@con.set_transaction_isolation Connection.TRANSACTION_READ_UNCOMMITTED
+
+					case :trc
+						@con.set_transaction_isolation Connection.TRANSACTION_READ_COMMITTED
+
+					case :trr
+						@con.set_transaction_isolation Connection.TRANSACTION_REPEATABLE_READ
+
+					case :ts
+						@con.set_transaction_isolation Connection.TRANSACTION_SERIALIZABLE
+
+					case :tn
+						@con.set_transaction_isolation Connection.TRANSACTION_NONE
+
+					else
+				end
+
 				@closed = false
 
 			rescue SQLRecoverableException => erro
@@ -115,6 +144,8 @@ class JFB
 
 			k = k + 1
 		end
+
+		rs.close
 
 		res
 	end
