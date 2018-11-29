@@ -1,5 +1,5 @@
 module Jfb
-  VERSION = "0.5.1"
+  VERSION = "1.0.0"
 
 #What the numbers mean: rr.ff.hh
 # rr: Major releases and changes in the project;
@@ -63,4 +63,7 @@ module Jfb
 #Version 0.5.1
 # Implements a simple test to interact with a database in my envyro.
 # Fixes wrong column refference.
+
+#Version 1.0.0
+# Enables setting up of connection, resultset and querie properties.
 end
